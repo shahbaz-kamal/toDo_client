@@ -2,8 +2,11 @@ import React, { useEffect, useState } from "react";
 import { IoSunnyOutline } from "react-icons/io5";
 import { Link } from "react-router-dom";
 import logo from "../assets/logo.webp";
+import useAuth from "../Hooks/useAuth";
 
 const Navbar = () => {
+  const {name}=useAuth()
+  console.log(name)
   const [darkMode, setDarkMode] = useState(
     false
     // localStorage.getItem("theme") === "dark"
