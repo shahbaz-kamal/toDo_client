@@ -43,6 +43,30 @@ const TaskCard = ({ item, refetchAllTaskData }) => {
       }
     });
   };
+  // updating category
+  const handleCategoryUpdate = async (_id) => {
+    console.log(_id);
+    try {
+      const res = await axiosSecure.patch(`task/${_id}`, { category });
+      if (res.data.modifiedCount > 0) {
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "Task category updated Successfully",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        refetchAllTaskData();
+      }
+    } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: `${error.message}`,
+      });
+    }
+  };
+
   return (
     <div className="bg-light-background dark:bg-dark-background text-light-text dark:text-dark-text p-4 rounded-xl shadow-md border border-light-primary dark:border-dark-primary w-full ">
       <p className="text-base md:text-lg text-light-text dark:text-dark-text font-medium opacity-80">
@@ -54,16 +78,9 @@ const TaskCard = ({ item, refetchAllTaskData }) => {
       </p>
 
       <div className="flex justify-end gap-3 mt-4">
-        {category === "toDo" && (
-          <button className="text-blue-500 hover:text-blue-700">
+      <button className="text-blue-500 hover:text-blue-700">
             <FaEdit size={18} />
           </button>
-        )}
-        {category === "inProgress" && (
-          <button className="text-blue-500 hover:text-blue-700">
-            <FaEdit size={18} />
-          </button>
-        )}
 
         <button
           onClick={() => handleDelete(_id)}
@@ -71,8 +88,11 @@ const TaskCard = ({ item, refetchAllTaskData }) => {
         >
           <FaTrash size={18} />
         </button>
-        {category === "done" || (
-          <button className="text-green-500 hover:text-green-700">
+        {(category === "toDo" || category === "inProgress") && (
+          <button
+            onClick={() => handleCategoryUpdate(_id)}
+            className="text-green-500 hover:text-green-700"
+          >
             <FaCheckCircle size={18} />
           </button>
         )}
