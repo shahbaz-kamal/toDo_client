@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import logo from "../assets/logo.webp";
 import useAuth from "../Hooks/useAuth";
 import { FaRegMoon } from "react-icons/fa";
+import useSingleUser from "../Hooks/useSingleUser";
 
 const Navbar = () => {
   const [darkMode, setDarkMode] = useState(
@@ -20,6 +21,8 @@ const Navbar = () => {
     }
   }, [darkMode]);
   console.log(darkMode);
+  const {userData}=useSingleUser()
+  console.log(userData)
   return (
     <div className="navbar  w-11/12 md:w-10/12 mx-auto">
       <div className="flex-1">

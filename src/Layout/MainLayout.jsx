@@ -12,9 +12,9 @@ const MainLayout = () => {
       <section className="">
         <Outlet></Outlet>
       </section>
-      <footer className="mt-8">
+      {/* <footer className="mt-8">
         <Footer></Footer>
-      </footer>
+      </footer> */}
     </>
   );
 };
