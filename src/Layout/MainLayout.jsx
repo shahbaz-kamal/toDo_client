@@ -6,7 +6,7 @@ import Footer from "../Shared/Footer";
 const MainLayout = () => {
   return (
     <>
-      <header className="w-full bg-light-secondary dark:bg-dark-secondary bg-opacity-50 fixed backdrop-blur-sm">
+      <header className="w-full bg-light-secondary dark:bg-dark-secondary bg-opacity-50 fixed backdrop-blur-sm z-10">
         <Navbar></Navbar>
       </header>
       <section className="">

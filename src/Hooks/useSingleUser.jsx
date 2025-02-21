@@ -10,9 +10,12 @@ const useSingleUser = () => {
   const { data: userData = {}, refetch: refetchSingleUserData } = useQuery({
     queryKey: ["single-user"],
     queryFn: async () => {
-      const res = await axiosSecure.get(`user/${user?.email}`);
+      if (!user?.email) return {};
+      const res = await axiosSecure.get(`user/${user.email}`);
       return res.data;
+      //   const res = await axiosSecure.get(`user/${user?.email}`);
     },
+    enabled: !!user?.email,
   });
   return { userData, refetchSingleUserData };
 };

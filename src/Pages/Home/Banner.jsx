@@ -6,7 +6,7 @@ import UseAxiosSecure from "../../Hooks/UseAxiosSecure";
 import Swal from "sweetalert2";
 
 const Banner = () => {
-  const { googleSignInUser, user } = useAuth();
+  const { googleSignInUser, user,setLoading } = useAuth();
   const axiosSecure = UseAxiosSecure();
 
   const handleGoogleSignIn = async () => {
@@ -34,6 +34,7 @@ const Banner = () => {
             text: "Google Login Successfull",
           });
         }
+        setLoading(false)
       })
       .catch((error) => {
         Swal.fire({
@@ -41,6 +42,7 @@ const Banner = () => {
           title: "Oops...",
           text: `${error.message}`,
         });
+        setLoading(false)
       });
   };
   return (

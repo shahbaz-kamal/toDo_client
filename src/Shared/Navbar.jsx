@@ -5,8 +5,11 @@ import logo from "../assets/logo.webp";
 import useAuth from "../Hooks/useAuth";
 import { FaRegMoon } from "react-icons/fa";
 import useSingleUser from "../Hooks/useSingleUser";
+import Swal from "sweetalert2";
 
 const Navbar = () => {
+  const { userData } = useSingleUser();
+  const { user, logOutUser, setLoading } = useAuth();
   const [darkMode, setDarkMode] = useState(
     false
     // localStorage.getItem("theme") === "dark"
@@ -20,9 +23,28 @@ const Navbar = () => {
       //   localStorage.setItem("theme", "light");
     }
   }, [darkMode]);
-  console.log(darkMode);
-  const {userData}=useSingleUser()
-  console.log(userData)
+
+  const handleLogOut = async () => {
+    logOutUser()
+      .then(() => {
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "Log Out Successfull",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        setLoading(false);
+      })
+      .catch((error) => {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: `${error.message}`,
+        });
+      });
+  };
+  console.log(userData);
   return (
     <div className="navbar  w-11/12 md:w-10/12 mx-auto">
       <div className="flex-1">
@@ -49,10 +71,15 @@ const Navbar = () => {
             className="btn btn-ghost btn-circle avatar"
           >
             <div className="w-10 rounded-full">
-              <img
-                alt="Tailwind CSS Navbar component"
-                src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-              />
+              {user && user?.email ? (
+                <img
+                  referrerPolicy="no-referrer"
+                  className="w-full h-full object-cover rounded-full"
+                  src={user?.photoURL}
+                />
+              ) : (
+                ""
+              )}
             </div>
           </div>
           <ul
@@ -60,7 +87,9 @@ const Navbar = () => {
             className="menu menu-sm dropdown-content bg-light-primary dark:bg-dark-primary rounded-box z-[1] mt-3 w-52 p-2 shadow"
           >
             <li className="rounded-md   text-light-text ">
-              <button className="text-lg md:text-xl">Log Out</button>
+              <button onClick={handleLogOut} className="text-lg md:text-xl">
+                Log Out
+              </button>
             </li>
           </ul>
         </div>
@@ -83,9 +112,8 @@ const Navbar = () => {
               value="synthwave"
               className="toggle theme-controller border-light-primary dark:border-dark-primary"
               onChange={() => setDarkMode(!darkMode)}
-              
             />
-            <div className="dark:text-dark-text"> 
+            <div className="dark:text-dark-text">
               {" "}
               <IoMoonOutline size={24} />
             </div>
