@@ -4,6 +4,7 @@ import UseAxiosSecure from "../../Hooks/UseAxiosSecure";
 import Swal from "sweetalert2";
 import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../Hooks/useAuth";
+import TaskCard from "./taskCard";
 
 const AddTask = () => {
   const { user } = useAuth();
@@ -100,7 +101,42 @@ const AddTask = () => {
       </section>
 
       {/* display task section */}
-      <section></section>
+      <section className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
+        {/* todo */}
+        <div className=" p-3 rounded-xl shadow-2xl dark:bg-dark-accent dark:bg-opacity-20">
+          <h1 className="font-extrabold text-2xl md:text-3xl text-light-text dark:text-dark-text mb-3 text-center">
+            To Do
+          </h1>
+          <div className="flex flex-col gap-6">
+            {allTaskData.map((single) => (
+              <TaskCard key={single._id}></TaskCard>
+            ))}
+          </div>
+        </div>
+
+        {/* inprogress */}
+        <div className="  p-3 rounded-xl shadow-2xl dark:bg-dark-accent dark:bg-opacity-20">
+          <h1 className="font-extrabold text-2xl md:text-3xl text-light-text dark:text-dark-text mb-3 text-center">
+            In Progress
+          </h1>
+          <div className="flex flex-col gap-6">
+            {allTaskData.map((single) => (
+              <TaskCard key={single._id}></TaskCard>
+            ))}
+          </div>
+        </div>
+        {/* done */}
+        <div className=" p-3 rounded-xl shadow-2xl dark:bg-dark-accent dark:bg-opacity-20"> 
+          <h1 className="font-extrabold text-2xl md:text-3xl text-light-text dark:text-dark-text mb-3 text-center">
+            Done
+          </h1>
+          <div className="flex flex-col gap-6">
+            {allTaskData.map((single) => (
+              <TaskCard key={single._id}></TaskCard>
+            ))}
+          </div>
+        </div>
+      </section>
     </div>
   );
 };
