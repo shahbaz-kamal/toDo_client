@@ -1,0 +1,7 @@
+.task-card {
+    cursor: grab;
+  }
+  .task-card:active {
+    cursor: grabbing;
+  }
+  

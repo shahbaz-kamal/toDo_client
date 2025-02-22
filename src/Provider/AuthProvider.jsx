@@ -43,6 +43,7 @@ const AuthProvider = ({ children }) => {
         console.log("Current User ------> ", currentUser);
         // get token and storing in the local storage
         const userInfo = { email: currentUser.email };
+        setLoading(false)
       } else {
         setLoading(false);
       }
