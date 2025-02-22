@@ -95,7 +95,7 @@ const AddTask = () => {
           <div className="form-control">
             <label className="label">
               <span className="label-text text-lg md:text-xl font-medium text-light-text dark:text-dark-text">
-                Password
+                Description
               </span>
             </label>
             <input
